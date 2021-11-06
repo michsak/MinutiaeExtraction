@@ -1,28 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Runtime.InteropServices;
-using System.Linq;
-using System.IO;
+﻿using Emgu.CV;
 using Emgu.CV.Structure;
-using Emgu.CV;
-using Accord;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MinutiaeExtraction
 {
     public static class Normalization
     {
-        public static Image<Gray, byte> Otsu(Image<Gray, byte> image)
-        {
-            Image<Gray, byte> normalizedImage = AHE(image);
-
-            Image<Gray, byte> outputImage = new Image<Gray, byte>(image.Width, image.Height, new Gray(0));
-            double threshold = CvInvoke.Threshold(normalizedImage, outputImage, 500, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
-
-            return outputImage;
-        }
-
         public static Image<Gray, byte> AHE(Emgu.CV.Image<Gray, byte> image)
         {
             Accord.Imaging.Filters.HistogramEqualization histogramEqualization = new Accord.Imaging.Filters.HistogramEqualization();
@@ -31,6 +19,14 @@ namespace MinutiaeExtraction
             Image<Gray, Byte> finalEqualizedImage = new Image<Gray, Byte>(equalizedImage);
 
             return finalEqualizedImage;
+        }
+
+        public static Image<Gray, byte> Otsu(Image<Gray, byte> image)
+        {
+            Image<Gray, byte> outputImage = new Image<Gray, byte>(image.Width, image.Height, new Gray(0));
+            double threshold = CvInvoke.Threshold(image, outputImage, 500, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
+
+            return outputImage;
         }
 
         public static Image<Gray, byte> ManualThreshold(int threshold, Image<Gray, byte> image)
@@ -57,6 +53,7 @@ namespace MinutiaeExtraction
                     }
                 }
             }
+
             return newImage;
         }
     }

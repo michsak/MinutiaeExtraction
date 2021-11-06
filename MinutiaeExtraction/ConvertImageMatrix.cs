@@ -2,7 +2,9 @@
 using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MinutiaeExtraction
 {
@@ -45,9 +47,9 @@ namespace MinutiaeExtraction
                 for (int x = 0; x < img.Width; x++)
                 {
                     pixel = img[y, x];
-                    if (pixel.Intensity == 255) // bialy piksel
+                    if (pixel.Intensity == 255) // white pixel
                         resultMatrix[y, x] = 0;
-                    else // czarny piksel
+                    else // black pixel
                         resultMatrix[y, x] = 1;
                 }
             }

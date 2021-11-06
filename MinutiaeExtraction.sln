@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1145
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinutiaeExtraction", "MinutiaeExtraction\MinutiaeExtraction.csproj", "{5513D812-012D-4733-97DC-AA020285AE5D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinutiaeExtraction", "MinutiaeExtraction\MinutiaeExtraction.csproj", "{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5513D812-012D-4733-97DC-AA020285AE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5513D812-012D-4733-97DC-AA020285AE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5513D812-012D-4733-97DC-AA020285AE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5513D812-012D-4733-97DC-AA020285AE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {A8354FD1-2C6D-49E4-A34B-42BBC6F3A801}
+		SolutionGuid = {5801A922-3DE0-42A6-A70C-C91747CA0001}
 	EndGlobalSection
 EndGlobal

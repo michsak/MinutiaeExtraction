@@ -2,7 +2,9 @@
 using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MinutiaeExtraction
 {
@@ -14,19 +16,10 @@ namespace MinutiaeExtraction
         private static int minY = 480;
         private static int boundary = 25;  //max to 30
 
-        public enum CnReturnType
-        {
-            SINGLE_POINT, // pojedynczy punkt
-            EDGE_END, // koniec krawedzi
-            EDGE_CONTINUATION, // kontynuacja krawedzi
-            FORK, // rozwidlenie
-            CROSSING // skrzyzowanie
-        }
+        //x-from left
+        //y-from up
 
-        //x-od lewej
-        //y-od gory
-
-        public static Dictionary<CnReturnType, IList<MCvPoint2D64f>> Perform(Image<Gray, Byte> img)
+        public static Dictionary<MinutiaeType, IList<MCvPoint2D64f>> Perform(Image<Gray, Byte> img)
         {
             var matrix = ConvertImageMatrix.GrayImageToMatrix(img);
 
@@ -45,21 +38,21 @@ namespace MinutiaeExtraction
                     if (matrix[y, x] == 0)
                         continue;
 
-                    switch ((CnReturnType)CheckPixel(ref matrix, x, y))
+                    switch ((MinutiaeType)CheckPixel(ref matrix, x, y))
                     {
-                        case CnReturnType.SINGLE_POINT:
+                        case MinutiaeType.SINGLE_POINT:
                             singlePointList.Add(new MCvPoint2D64f(x, y));
                             break;
 
-                        case CnReturnType.EDGE_END:
+                        case MinutiaeType.EDGE_END:
                             edgeEndList.Add(new MCvPoint2D64f(x, y));
                             break;
 
-                        case CnReturnType.FORK:
+                        case MinutiaeType.BIFURCATION:
                             forkList.Add(new MCvPoint2D64f(x, y));
                             break;
 
-                        case CnReturnType.CROSSING:
+                        case MinutiaeType.CROSSING:
                             crossingList.Add(new MCvPoint2D64f(x, y));
                             break;
                     }
@@ -73,12 +66,12 @@ namespace MinutiaeExtraction
 
             //List<MCvPoint2D64f> updatedEdgeLis = edgeEndList;
 
-            var result = new Dictionary<CnReturnType, IList<MCvPoint2D64f>>
+            var result = new Dictionary<MinutiaeType, IList<MCvPoint2D64f>>
             {
-                { CnReturnType.SINGLE_POINT, updatedSinglePointList },
-                { CnReturnType.EDGE_END, updatedEdgeList },
-                { CnReturnType.FORK, forkList },
-                { CnReturnType.CROSSING, crossingList }
+                { MinutiaeType.SINGLE_POINT, updatedSinglePointList },
+                { MinutiaeType.EDGE_END, updatedEdgeList },
+                { MinutiaeType.BIFURCATION, forkList },
+                { MinutiaeType.CROSSING, crossingList }
             };
 
             return result;
