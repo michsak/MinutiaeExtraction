@@ -152,7 +152,6 @@ namespace MinutiaeExtraction
                     {
                         matrixSum += matrix[Convert.ToInt16(edge.Y + j), Convert.ToInt16(edge.X)];
 
-                        Console.WriteLine(matrixSum);
                         if (matrixSum == 0)
                         {
                             colorSum = 0;

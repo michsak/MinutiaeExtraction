@@ -39,17 +39,12 @@ namespace MinutiaeExtraction
         private void button2_Click(object sender, EventArgs e)
         {
             //AHE
-            HistogramEqualization histogramEqualization = new HistogramEqualization();
-            AdaptiveSmoothing adaptiveSmoothing = new AdaptiveSmoothing();
             if (picture != null)
             {
-                Bitmap equalizedImage = adaptiveSmoothing.Apply(picture.ToBitmap());
-                Image<Gray, Byte> finalEqualizedImage = new Image<Gray, Byte>(equalizedImage);
+                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(picture);
 
                 //Otsu binarization
-                Emgu.CV.Image<Gray, Byte> afterBinarization = new Emgu.CV.Image<Gray, Byte>(finalEqualizedImage.Width, 
-                    finalEqualizedImage.Height, new Gray(0));
-                CvInvoke.Threshold(finalEqualizedImage, afterBinarization, 500, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
+                Image<Gray, Byte> afterBinarization = Normalization.Otsu(finalEqualizedImage);
 
                 //K3M
                 K3M K3M = new K3M();
