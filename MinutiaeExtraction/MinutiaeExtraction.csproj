@@ -95,6 +95,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GaborFilter.cs" />
     <Compile Include="K3M.cs" />
     <Compile Include="Minutiae.cs" />
     <Compile Include="MinutiaeType.cs" />

@@ -43,8 +43,12 @@ namespace MinutiaeExtraction
             {
                 Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(picture);
 
+                //Gabor filter
+                Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
+
                 //Otsu binarization
-                Image<Gray, Byte> afterBinarization = Normalization.Otsu(finalEqualizedImage);
+                Image<Gray, Byte> afterBinarization = Normalization.Otsu(finalGaborFiltering);
+                Normalization.RemoveBorder(ref afterBinarization);
 
                 //K3M
                 K3M K3M = new K3M();

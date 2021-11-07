@@ -58,15 +58,15 @@ namespace MinutiaeExtraction
             return newImage;
         }
 
-        private static void RemoveBorder(ref Image<Gray, byte> finalEqualizedImage)
+        public static void RemoveBorder(ref Image<Gray, byte> finalEqualizedImage)
         {
             for (int v = 0; v < finalEqualizedImage.Height; v++)
             {
-                for (int u = 0; u < 5; u++)
+                for (int u = 0; u < 6; u++)
                 {
                     finalEqualizedImage.Data[v, u, 0] = 255; //Set Pixel Color | fast way
                 }
-                for (int u = finalEqualizedImage.Width - 5; u < finalEqualizedImage.Width; u++)
+                for (int u = finalEqualizedImage.Width - 6; u < finalEqualizedImage.Width; u++)
                 {
                     finalEqualizedImage.Data[v, u, 0] = 255; //Set Pixel Color | fast way
                 }
@@ -74,11 +74,11 @@ namespace MinutiaeExtraction
 
             for (int v = 0; v < finalEqualizedImage.Width; v++)
             {
-                for (int u = 0; u < 5; u++)
+                for (int u = 0; u < 6; u++)
                 {
                     finalEqualizedImage.Data[u, v, 0] = 255; //Set Pixel Color | fast way
                 }
-                for (int u = finalEqualizedImage.Height - 5; u < finalEqualizedImage.Height; u++)
+                for (int u = finalEqualizedImage.Height - 6; u < finalEqualizedImage.Height; u++)
                 {
                     finalEqualizedImage.Data[u, v, 0] = 255; //Set Pixel Color | fast way
                 }
