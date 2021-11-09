@@ -2,6 +2,7 @@
 using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,8 +65,6 @@ namespace MinutiaeExtraction
             //List<MCvPoint2D64f> updatedForkList = RemoveAllWrongMinutiae(matrix, forkList, 20);
             //List<MCvPoint2D64f> updatedCrossingList = RemoveAllWrongMinutiae(matrix, crossingList, 20);
 
-            //List<MCvPoint2D64f> updatedEdgeLis = edgeEndList;
-
             var result = new Dictionary<MinutiaeType, IList<MCvPoint2D64f>>
             {
                 { MinutiaeType.SINGLE_POINT, updatedSinglePointList },
@@ -73,6 +72,18 @@ namespace MinutiaeExtraction
                 { MinutiaeType.BIFURCATION, forkList },
                 { MinutiaeType.CROSSING, crossingList }
             };
+
+            using (StreamWriter sw = new StreamWriter(string.Format(@"..\..\..\ExtractedParams\{0}.txt",
+                       DateTime.Now.ToString()).Trim(' ').Replace("-", "").Replace(":", "")))
+            {
+                foreach (var minutiae in result)
+                {
+                    foreach (var cord in minutiae.Value)
+                    {
+                        sw.WriteLine("Type: " + minutiae.Key.ToString() + " X: " + cord.X + " Y: " + cord.Y);
+                    }
+                }
+            }
 
             return result;
         }

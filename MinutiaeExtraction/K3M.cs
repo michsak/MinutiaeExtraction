@@ -39,7 +39,6 @@ namespace MinutiaeExtraction
                                     224, 225, 227, 231, 239, 240, 241, 243, 247, 248,
                                     249, 251, 252, 253, 254 };
 
-
             int weight;
             bool change;
             List<(int, int)> marked = new List<(int, int)>();

@@ -31,7 +31,7 @@ namespace MinutiaeExtraction
             {
                 picture = new Image<Gray, Byte>(openFileDialog.FileName);
                 imageBox1.Image = picture;
-                imageBox1.SetZoomScale(0.75, new Point(0, 0));
+                imageBox1.SetZoomScale(1, new Point(0, 0));
 
             }
         }
@@ -43,21 +43,21 @@ namespace MinutiaeExtraction
             {
                 Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(picture);
 
-                //Gabor filter
+                ////Gabor filter
                 Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
 
-                //Otsu binarization
+                ////Otsu binarization
                 Image<Gray, Byte> afterBinarization = Normalization.Otsu(finalGaborFiltering);
                 Normalization.RemoveBorder(ref afterBinarization);
 
-                //K3M
+                ////K3M
                 K3M K3M = new K3M();
                 Bitmap afterThinning = K3M.Thin(afterBinarization.ToBitmap());
                 picture = new Image<Gray, Byte>(afterThinning);
             }
 
             imageBox2.Image = picture;
-            imageBox2.SetZoomScale(0.75, new Point(0, 0));
+            imageBox2.SetZoomScale(1, new Point(0, 0));
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -67,7 +67,7 @@ namespace MinutiaeExtraction
             {
                 Image<Bgr, Byte> afterMinutiaeDetection = Minutiae.detectingMinutiae(picture);
                 imageBox3.Image = afterMinutiaeDetection;
-                imageBox3.SetZoomScale(0.75, new Point(0, 0));
+                imageBox3.SetZoomScale(1, new Point(0, 0));
             }
         }
     }

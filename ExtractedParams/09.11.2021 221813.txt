@@ -1,0 +1,1 @@
+Type: BIFURCATION X: 120 Y: 447
