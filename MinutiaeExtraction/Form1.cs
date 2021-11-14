@@ -41,19 +41,20 @@ namespace MinutiaeExtraction
             //AHE
             if (picture != null)
             {
-                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(picture);
+                Bitmap afterSharpening = SharpenFilter.Sharpen(picture.ToBitmap());
 
-                ////Gabor filter
+                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte> (afterSharpening));
+
+                //picture = new Image<Gray, Byte>(finalEqualizedImage.ToBitmap());
+
+                //////Gabor filter with Otsu binarization
                 Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
+                Normalization.RemoveBorder(ref finalGaborFiltering);
 
-                ////Otsu binarization
-                Image<Gray, Byte> afterBinarization = Normalization.Otsu(finalGaborFiltering);
-                Normalization.RemoveBorder(ref afterBinarization);
-
-                ////K3M
-                K3M K3M = new K3M();
-                Bitmap afterThinning = K3M.Thin(afterBinarization.ToBitmap());
-                picture = new Image<Gray, Byte>(afterThinning);
+                //////KMM
+                KMMAlgorithm kMMAlgorithm = new KMMAlgorithm();
+                Image<Gray,Byte> afterThinning = kMMAlgorithm.Perform(finalGaborFiltering);
+                picture = afterThinning;
             }
 
             imageBox2.Image = picture;

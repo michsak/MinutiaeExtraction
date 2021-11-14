@@ -2,53 +2,55 @@
 using Emgu.CV.Structure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MinutiaeExtraction
 {
-    public static class KMMAlgorithm
+    public class KMMAlgorithm
     {
         //tablica usunięc dla możliwych do uzyskania sum przez sąsiadów na podstawie macierzy wag
         private static readonly int[] deletionArray = {
-                3,   5 ,  7,   12,  13,  14,  15,  20,
-                21,  22,  23,  28,  29,  30,  31,  48,
-                52,  53,  54,  55,  56,  60,  61,  62,
-                63,  65,  67,  69,  71,  77,  79,  80,
-                81,  83,  84,  85,  86,  87,  88,  89,
-                91,  92,  93,  94,  95,  97,  99,  101,
-                103, 109, 111, 112, 113, 115, 116, 117,
-                118, 119, 120, 121, 123, 124, 125, 126,
-                127, 131, 133, 135, 141, 143, 149, 151,
-                157, 159, 181, 183, 189, 191, 192, 193,
-                195, 197, 199, 205, 207, 208, 209, 211,
-                212, 213, 214, 215, 216, 217, 219, 220,
-                221, 222, 223, 224, 225, 227, 229, 231,
-                237, 239, 240, 241, 243, 244, 245, 246,
-                247, 248, 249, 251, 252, 253, 254, 255,
-            };
+            3,   5 ,  7,   12,  13,  14,  15,  20,
+            21,  22,  23,  28,  29,  30,  31,  48,
+            52,  53,  54,  55,  56,  60,  61,  62,
+            63,  65,  67,  69,  71,  77,  79,  80,
+            81,  83,  84,  85,  86,  87,  88,  89,
+            91,  92,  93,  94,  95,  97,  99,  101,
+            103, 109, 111, 112, 113, 115, 116, 117,
+            118, 119, 120, 121, 123, 124, 125, 126,
+            127, 131, 133, 135, 141, 143, 149, 151,
+            157, 159, 181, 183, 189, 191, 192, 193,
+            195, 197, 199, 205, 207, 208, 209, 211,
+            212, 213, 214, 215, 216, 217, 219, 220,
+            221, 222, 223, 224, 225, 227, 229, 231,
+            237, 239, 240, 241, 243, 244, 245, 246,
+            247, 248, 249, 251, 252, 253, 254, 255,
+        };
 
         //mozliwosci sum dla piksela zamienianego na 4 (2-3-4 sąsiedzi wokoł) CIĄGIEM OBOK SIEBIE
         private static readonly int[] arrayOfSumsForFours = {
-            3,   7,   15,  6,
-            14,  30,  12,  28,
-            60,  24,  56,  120,
-            48,  112, 240, 96,
-            224, 225, 192, 193,
-            195, 129, 131, 135
-        };
+        3,   7,   15,  6,
+        14,  30,  12,  28,
+        60,  24,  56,  120,
+        48,  112, 240, 96,
+        224, 225, 192, 193,
+        195, 129, 131, 135
+    };
 
-        private static readonly HashSet<int> deletionSet = new HashSet<int>(deletionArray);
-        private static readonly HashSet<int> deletionSetForFours = new HashSet<int>(arrayOfSumsForFours);
+        private readonly HashSet<int> deletionSet = new HashSet<int>(deletionArray);
+        private readonly HashSet<int> deletionSetForFours = new HashSet<int>(arrayOfSumsForFours);
 
         //macierz wag wokół piksela x
-        private static readonly int[,] weightBoard = {
-                {128, 1,  2},
-                {64,  0,  4},
-                {32,  16, 8}
-            };
+        private readonly int[,] weightBoard = {
+            {128, 1,  2},
+            {64,  0,  4},
+            {32,  16, 8}
+        };
 
-        private static bool KmmIteration(ref int[,] input) // jako parametr dostaje macierz 0 i 1 naszego obrazu
+        private bool KmmIteration(ref int[,] input) // jako parametr dostaje macierz 0 i 1 naszego obrazu
         {
             bool anyChanges = false;
             // phase 1-2
@@ -73,7 +75,7 @@ namespace MinutiaeExtraction
             return anyChanges;
         }
 
-        private static void FindOutLines(ref int[,] input)
+        private void FindOutLines(ref int[,] input)
         {
             int targetHeight = input.GetLength(0) - 1;
             int targetWidth = input.GetLength(1) - 1;
@@ -92,7 +94,7 @@ namespace MinutiaeExtraction
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int ChangePixelsToOneOrThree(ref int[,] input, int x, int y)
+        private int ChangePixelsToOneOrThree(ref int[,] input, int x, int y)
         {
             // 1) jedynki konturu, ktore dotykaja tla (zer) zamieniane sa na dwojki
             if (input[y, x - 1] == 0)
@@ -116,7 +118,7 @@ namespace MinutiaeExtraction
             return 1;
         }
 
-        private static void ChangePixelsWithNeighboursToFours(ref int[,] input)
+        private void ChangePixelsWithNeighboursToFours(ref int[,] input)
         {
             int targetHeight = input.GetLength(0) - 1;
             int targetWidth = input.GetLength(1) - 1;
@@ -132,7 +134,7 @@ namespace MinutiaeExtraction
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static int CalculatePixelWeight(ref int[,] input, int x, int y)
+        private int CalculatePixelWeight(ref int[,] input, int x, int y)
         {
             x -= 1;
             y -= 1;
@@ -148,7 +150,7 @@ namespace MinutiaeExtraction
             return sum;
         }
 
-        private static bool RemoveAllTargets(ref int[,] input, int target)
+        private bool RemoveAllTargets(ref int[,] input, int target)
         {
             bool anyChanges = false;
             int height = input.GetLength(0);
@@ -167,7 +169,7 @@ namespace MinutiaeExtraction
             return anyChanges;
         }
 
-        private static void ChangePixelsToOne(ref int[,] input, int target)
+        private void ChangePixelsToOne(ref int[,] input, int target)
         {
             int height = input.GetLength(0);
             int width = input.GetLength(1);
@@ -182,7 +184,7 @@ namespace MinutiaeExtraction
         }
 
 
-        private static bool MarkRedundantContourPixels(ref int[,] input, int target, int marker)
+        private bool MarkRedundantContourPixels(ref int[,] input, int target, int marker)
         {
             bool anyChanges = false;
             int targetHeight = input.GetLength(0) - 1;
@@ -202,7 +204,7 @@ namespace MinutiaeExtraction
             return anyChanges;
         }
 
-        private static bool RemoveUnnecessaryPixels(ref int[,] input)
+        private bool RemoveUnnecessaryPixels(ref int[,] input)
         {
             bool anyChanges = false;
             int targetHeight = input.GetLength(0) - 1;
@@ -223,7 +225,7 @@ namespace MinutiaeExtraction
         }
 
 
-        public static Image<Gray, Byte> Perform(Image<Gray, Byte> img)
+        public Image<Gray, Byte> Perform(Image<Gray, Byte> img)
         {
             int[,] result = ConvertImageMatrix.GrayImageToMatrix(img); // krok 1 - zamiana obrazu na macierz zer i jedynek
 

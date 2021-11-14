@@ -115,7 +115,25 @@ namespace MinutiaeExtraction
                     Image croppedGaborFilteredImage = cropSmallerImage(oldImg1.ToBitmap(), i, j, ROI);
 
                     Image<Gray, Byte> oldImg2 = new Image<Gray, byte>(new Bitmap(croppedGaborFilteredImage));
-                    imgArrayBitmap.Add(oldImg2.ToBitmap());
+
+                    Image<Gray, Byte> afterBinarization = Normalization.Otsu(oldImg2);
+
+                    int value_counter = 0;
+                    for (int l = 0; l < afterBinarization.Width; l++)
+                    {
+                        for (int m = 0; m < afterBinarization.Height; m++)
+                        {
+                            value_counter += (int)afterBinarization[l, m].Intensity;
+                        }
+                    }
+
+                    if (value_counter < ROI * ROI *255 / 3)
+                    {
+                        afterBinarization = new Image<Gray, Byte>(ROI, ROI, new Gray(255));
+                    }
+
+                    imgArrayBitmap.Add(afterBinarization.ToBitmap());
+
 
                     GaborFilter.counter += 1;
                 }

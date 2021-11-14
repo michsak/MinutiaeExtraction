@@ -117,10 +117,12 @@ namespace MinutiaeExtraction
                     goto Check;
                 }
 
-                if (!(edge.X > 60 && edge.X < 260 && edge.Y > 80 && edge.Y < 400))
+                if (!(edge.X > 80 && edge.X < 240 && edge.Y > 90 && edge.Y < 390))
+                {
                     colorSum = RemoveWrongMinutiaeOnCurve(matrix, edge, colorSum, height);
+                }
 
-                Check:
+            Check:
                 if (colorSum <= 0)
                 {
                     updatedEdgeList.Remove(edge);
