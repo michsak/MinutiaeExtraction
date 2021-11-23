@@ -11,6 +11,8 @@ namespace MinutiaeExtraction
 {
     public static class Normalization
     {
+        private static double threshold = 0;
+
         public static Image<Gray, byte> AHE(Emgu.CV.Image<Gray, byte> image)
         {
             Accord.Imaging.Filters.HistogramEqualization histogramEqualization = new Accord.Imaging.Filters.HistogramEqualization();
@@ -25,9 +27,14 @@ namespace MinutiaeExtraction
         public static Image<Gray, byte> Otsu(Image<Gray, byte> image)
         {
             Image<Gray, byte> outputImage = new Image<Gray, byte>(image.Width, image.Height, new Gray(0));
-            double threshold = CvInvoke.Threshold(image, outputImage, 500, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
+            threshold = CvInvoke.Threshold(image, outputImage, 500, 255, Emgu.CV.CvEnum.ThresholdType.Otsu);
 
             return outputImage;
+        }
+
+        public static int GetThreshold()
+        {
+            return (int)threshold;
         }
 
         public static Image<Gray, byte> ManualThreshold(int threshold, Image<Gray, byte> image)

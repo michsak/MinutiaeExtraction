@@ -127,10 +127,36 @@ namespace MinutiaeExtraction
                         }
                     }
 
-                    if (value_counter < ROI * ROI *255 / 3)
+                    if (value_counter < ROI*ROI*255/3)
                     {
-                        afterBinarization = new Image<Gray, Byte>(ROI, ROI, new Gray(255));
+                        int iterationCounter = 0;
+
+                        while(value_counter < ROI*ROI*255/3 && iterationCounter < 4)
+                        {
+                            iterationCounter += 1;
+
+                            if (Normalization.GetThreshold() - 30 <= 0 || iterationCounter == 4)
+                            {
+                                afterBinarization = new Image<Gray, Byte>(ROI, ROI, new Gray(255));
+                                break;
+                            }
+
+                            afterBinarization = Normalization.ManualThreshold(Normalization.GetThreshold() - 30, oldImg2);
+
+                            value_counter = 0;
+                            for (int l = 0; l < afterBinarization.Width; l++)
+                            {
+                                for (int m = 0; m < afterBinarization.Height; m++)
+                                {
+                                    value_counter += (int)afterBinarization[l, m].Intensity;
+                                }
+                            }
+
+                            Console.WriteLine("doing");
+                        }
                     }
+
+                    //}
 
                     imgArrayBitmap.Add(afterBinarization.ToBitmap());
 
