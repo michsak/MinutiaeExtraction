@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28307.1145
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinutiaeExtraction", "MinutiaeExtraction\MinutiaeExtraction.csproj", "{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futronic.ConsoleDemo", "Futronic.ConsoleDemo\Futronic.ConsoleDemo.csproj", "{B8BCBDCF-FC45-43D5-821E-AD30F50EB196}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Futronic.Scanners.FS26X80", "Futronic.Scanners.FS26X80\Futronic.Scanners.FS26X80.csproj", "{4CA2C425-2739-485B-8562-F5CE3FD5366A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FutronicFingerPrint", "FutronicFingerPrint\FutronicFingerPrint.csproj", "{12866250-11F1-4C04-BC35-59BD41D37D4C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDD4B5BB-AF9C-4417-BB7E-479C53B2E27B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8BCBDCF-FC45-43D5-821E-AD30F50EB196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8BCBDCF-FC45-43D5-821E-AD30F50EB196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8BCBDCF-FC45-43D5-821E-AD30F50EB196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8BCBDCF-FC45-43D5-821E-AD30F50EB196}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CA2C425-2739-485B-8562-F5CE3FD5366A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CA2C425-2739-485B-8562-F5CE3FD5366A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CA2C425-2739-485B-8562-F5CE3FD5366A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CA2C425-2739-485B-8562-F5CE3FD5366A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12866250-11F1-4C04-BC35-59BD41D37D4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12866250-11F1-4C04-BC35-59BD41D37D4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12866250-11F1-4C04-BC35-59BD41D37D4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12866250-11F1-4C04-BC35-59BD41D37D4C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace MinutiaeExtraction
     public partial class Form1 : Form
     {
         private Image<Gray, Byte> picture;
+        private Image scannedBitmap = null;
 
         public Form1()
         {
@@ -67,6 +70,35 @@ namespace MinutiaeExtraction
                 Image<Bgr, Byte> afterMinutiaeDetection = Minutiae.detectingMinutiae(picture);
                 imageBox3.Image = afterMinutiaeDetection;
                 imageBox3.SetZoomScale(1, new Point(0, 0));
+            }
+        }
+        
+        //scanning using Futronic.ConsoleDemo
+        private void button4_Click(object sender, EventArgs e)
+        { 
+            Directory.SetCurrentDirectory(@"../../../Futronic.ConsoleDemo/bin/Debug/");
+            string finalScannerPath = Path.Combine(Directory.GetCurrentDirectory().ToString(), "Futronic.ConsoleDemo.exe");
+            Process.Start(finalScannerPath);
+     
+            while (true)
+            {
+                if (Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp").Length != 0)
+                {
+                    string currentPath = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp")[0].ToString();
+                    Process[] runningProcesses = Process.GetProcesses();
+                    foreach (Process process in runningProcesses)
+                    {
+                        if (process.ProcessName == "Futronic.ConsoleDemo")
+                        {
+                            process.CloseMainWindow();
+                            process.Kill();
+                        }
+                    }
+                    scannedBitmap = new Bitmap(currentPath);
+                    picture = new Image<Gray, Byte>((Bitmap)scannedBitmap);
+                    imageBox1.Image = picture;
+                    break;
+                }
             }
         }
     }
