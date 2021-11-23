@@ -22,10 +22,10 @@ namespace MinutiaeExtraction
             var crossing = points[MinutiaeType.CROSSING];
 
             var color = new MCvScalar(255, 9, 9);
-            DrawCircleForMinutiae(newImg, edgeEnd, new MCvScalar(255, 9, 9)); // koniec niebieski
-            DrawCircleForMinutiae(newImg, fork, new MCvScalar(0, 0, 255)); // rozwidlenia - czerwony
-            DrawCircleForMinutiae(newImg, crossing, new MCvScalar(0, 255, 0)); // skrzyzowanie - zielony
-            DrawCircleForMinutiae(newImg, singlePoint, new MCvScalar(255, 102, 255)); // pojedynczy punkty - rozowy
+            DrawCircleForMinutiae(newImg, edgeEnd, new MCvScalar(255, 9, 9)); // end - blue
+            DrawCircleForMinutiae(newImg, fork, new MCvScalar(0, 0, 255)); // bifurcation - red
+            DrawCircleForMinutiae(newImg, crossing, new MCvScalar(0, 255, 0)); // scrossing - green
+            DrawCircleForMinutiae(newImg, singlePoint, new MCvScalar(255, 102, 255)); // single point - pink
 
             return newImg;
         }

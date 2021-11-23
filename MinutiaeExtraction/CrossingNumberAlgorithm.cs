@@ -15,7 +15,7 @@ namespace MinutiaeExtraction
         private static int minX = 320;
         private static int maxY = 0;
         private static int minY = 480;
-        private static int boundary = 25;  //max to 30
+        private static int boundary = 25;  //30 is optimal maximum
 
         //x-from left
         //y-from up
@@ -29,8 +29,8 @@ namespace MinutiaeExtraction
             var edgeEndList = new List<MCvPoint2D64f>();
             var crossingList = new List<MCvPoint2D64f>();
 
-            int targetHeight = matrix.GetLength(0) - 1;  //odwrotnie!
-            int targetWidth = matrix.GetLength(1) - 1;
+            int targetHeight = matrix.GetLength(0) - 1;  //HEIGHT
+            int targetWidth = matrix.GetLength(1) - 1;  //WIDTH
 
             for (int y = 1; y < targetHeight; y++)
             {

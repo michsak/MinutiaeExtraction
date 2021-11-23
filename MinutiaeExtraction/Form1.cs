@@ -45,13 +45,11 @@ namespace MinutiaeExtraction
 
                 Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte> (afterSharpening));
 
-                //picture = new Image<Gray, Byte>(finalEqualizedImage.ToBitmap());
-
-                //////Gabor filter with Otsu binarization
+                //Gabor filter with Otsu binarization
                 Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
                 Normalization.RemoveBorder(ref finalGaborFiltering);
 
-                //////KMM
+                //KMM
                 KMMAlgorithm kMMAlgorithm = new KMMAlgorithm();
                 Image<Gray,Byte> afterThinning = kMMAlgorithm.Perform(finalGaborFiltering);
                 picture = afterThinning;
@@ -63,7 +61,7 @@ namespace MinutiaeExtraction
 
         private void button3_Click(object sender, EventArgs e)
         {
-            //CN, Remove false minutiae
+            //CNN, Remove false minutiae
             if (picture != null)
             {
                 Image<Bgr, Byte> afterMinutiaeDetection = Minutiae.detectingMinutiae(picture);

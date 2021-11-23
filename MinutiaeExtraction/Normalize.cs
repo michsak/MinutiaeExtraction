@@ -71,11 +71,11 @@ namespace MinutiaeExtraction
             {
                 for (int u = 0; u < 6; u++)
                 {
-                    finalEqualizedImage.Data[v, u, 0] = 255; //Set Pixel Color | fast way
+                    finalEqualizedImage.Data[v, u, 0] = 255;
                 }
                 for (int u = finalEqualizedImage.Width - 6; u < finalEqualizedImage.Width; u++)
                 {
-                    finalEqualizedImage.Data[v, u, 0] = 255; //Set Pixel Color | fast way
+                    finalEqualizedImage.Data[v, u, 0] = 255;
                 }
             }
 
@@ -83,11 +83,11 @@ namespace MinutiaeExtraction
             {
                 for (int u = 0; u < 6; u++)
                 {
-                    finalEqualizedImage.Data[u, v, 0] = 255; //Set Pixel Color | fast way
+                    finalEqualizedImage.Data[u, v, 0] = 255;
                 }
                 for (int u = finalEqualizedImage.Height - 6; u < finalEqualizedImage.Height; u++)
                 {
-                    finalEqualizedImage.Data[u, v, 0] = 255; //Set Pixel Color | fast way
+                    finalEqualizedImage.Data[u, v, 0] = 255;
                 }
             }
         }

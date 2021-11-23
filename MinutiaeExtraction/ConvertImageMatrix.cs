@@ -47,9 +47,9 @@ namespace MinutiaeExtraction
                 for (int x = 0; x < img.Width; x++)
                 {
                     pixel = img[y, x];
-                    if (pixel.Intensity == 255) // white pixel
+                    if (pixel.Intensity == 255)
                         resultMatrix[y, x] = 0;
-                    else // black pixel
+                    else
                         resultMatrix[y, x] = 1;
                 }
             }

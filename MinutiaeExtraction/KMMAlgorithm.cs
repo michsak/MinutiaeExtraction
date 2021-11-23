@@ -11,7 +11,6 @@ namespace MinutiaeExtraction
 {
     public class KMMAlgorithm
     {
-        //tablica usunięc dla możliwych do uzyskania sum przez sąsiadów na podstawie macierzy wag
         private static readonly int[] deletionArray = {
             3,   5 ,  7,   12,  13,  14,  15,  20,
             21,  22,  23,  28,  29,  30,  31,  48,
@@ -30,7 +29,6 @@ namespace MinutiaeExtraction
             247, 248, 249, 251, 252, 253, 254, 255,
         };
 
-        //mozliwosci sum dla piksela zamienianego na 4 (2-3-4 sąsiedzi wokoł) CIĄGIEM OBOK SIEBIE
         private static readonly int[] arrayOfSumsForFours = {
         3,   7,   15,  6,
         14,  30,  12,  28,
@@ -43,32 +41,27 @@ namespace MinutiaeExtraction
         private readonly HashSet<int> deletionSet = new HashSet<int>(deletionArray);
         private readonly HashSet<int> deletionSetForFours = new HashSet<int>(arrayOfSumsForFours);
 
-        //macierz wag wokół piksela x
         private readonly int[,] weightBoard = {
             {128, 1,  2},
             {64,  0,  4},
             {32,  16, 8}
         };
 
-        private bool KmmIteration(ref int[,] input) // jako parametr dostaje macierz 0 i 1 naszego obrazu
+        private bool KmmIteration(ref int[,] input)
         {
             bool anyChanges = false;
             // phase 1-2
-            FindOutLines(ref input); // krok 2 - zamiana jedynek na dwojki i trojki
+            FindOutLines(ref input);
 
             // phase 3
-            // krok 3 - zamiana pikseli, ktore maja 2/3/4 przylegajacych do siebie sasiadow i zamiana na czworki
             ChangePixelsWithNeighboursToFours(ref input);
 
             // phase 4
-            // krok 4 - usuniecie czworek
             anyChanges |= RemoveAllTargets(ref input, 4);
 
             // phase 5
-            // krok 5 - sprawdzenie czy 2 i 3 sa potrzebne do utrzymania ciaglosci obrazu
             anyChanges |= RemoveUnnecessaryPixels(ref input);
 
-            // jezeli sa potrzebne zamieniamy je na jedynki
             ChangePixelsToOne(ref input, 2);
             ChangePixelsToOne(ref input, 3);
 
@@ -96,7 +89,6 @@ namespace MinutiaeExtraction
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private int ChangePixelsToOneOrThree(ref int[,] input, int x, int y)
         {
-            // 1) jedynki konturu, ktore dotykaja tla (zer) zamieniane sa na dwojki
             if (input[y, x - 1] == 0)
                 return 2;
             if (input[y, x + 1] == 0)
@@ -106,7 +98,6 @@ namespace MinutiaeExtraction
             if (input[y + 1, x] == 0)
                 return 2;
 
-            // 2) naroznik, jedynki konturu, ktore znajduja sie w katach zamieniane na trojki //te ktore nie sa otoczone tłem, ale rogiem stykaja sie z 0
             for (int yy = y - 1; yy < y + 1; yy += 2)
             {
                 for (int xx = x - 1; xx < x + 1; xx += 2)
@@ -128,7 +119,7 @@ namespace MinutiaeExtraction
                 {
                     if (input[y, x] == 3 || input[y, x] == 2)
                         if (deletionSetForFours.Contains(CalculatePixelWeight(ref input, x, y)))
-                            input[y, x] = 4; // zamiana piksela na 4
+                            input[y, x] = 4;
                 }
             }
         }
@@ -183,7 +174,6 @@ namespace MinutiaeExtraction
             }
         }
 
-
         private bool MarkRedundantContourPixels(ref int[,] input, int target, int marker)
         {
             bool anyChanges = false;
@@ -224,14 +214,12 @@ namespace MinutiaeExtraction
             return anyChanges;
         }
 
-
         public Image<Gray, Byte> Perform(Image<Gray, Byte> img)
         {
-            int[,] result = ConvertImageMatrix.GrayImageToMatrix(img); // krok 1 - zamiana obrazu na macierz zer i jedynek
+            int[,] result = ConvertImageMatrix.GrayImageToMatrix(img);
 
-            while (KmmIteration(ref result)) ; // iteracja
+            while (KmmIteration(ref result)) ;
 
-            //Odcisk palca po KMM
             Image<Gray, Byte> newImage = ConvertImageMatrix.MatrixToGrayImage(result);
 
             return newImage;
