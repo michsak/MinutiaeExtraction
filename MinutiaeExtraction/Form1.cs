@@ -10,6 +10,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -75,29 +76,54 @@ namespace MinutiaeExtraction
         
         //scanning using Futronic.ConsoleDemo
         private void button4_Click(object sender, EventArgs e)
-        { 
+        {
             Directory.SetCurrentDirectory(@"../../../Futronic.ConsoleDemo/bin/Debug/");
             string finalScannerPath = Path.Combine(Directory.GetCurrentDirectory().ToString(), "Futronic.ConsoleDemo.exe");
             Process.Start(finalScannerPath);
-     
+            String currentPath = "";
+
             while (true)
             {
                 if (Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp").Length != 0)
                 {
-                    string currentPath = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp")[0].ToString();
+                    currentPath = Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp")[0].ToString();
                     Process[] runningProcesses = Process.GetProcesses();
                     foreach (Process process in runningProcesses)
                     {
                         if (process.ProcessName == "Futronic.ConsoleDemo")
                         {
+                            Thread.Sleep(500);
                             process.CloseMainWindow();
                             process.Kill();
                         }
                     }
+                    break;
+                }
+            }
+
+            Thread.Sleep(700);
+            ReadImage(currentPath);
+            DeleteAllBmpFilesInCurrentDir();
+        }
+
+        private static void DeleteAllBmpFilesInCurrentDir()
+        {
+            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "*.bmp"))
+            {
+                File.Delete(file);
+            }
+        }
+
+        private void ReadImage(string currentPath)
+        {
+            using (FileStream fs = new FileStream(currentPath, FileMode.Open, FileAccess.Read))
+            {
+                using (Image original = Image.FromStream(fs))
+                {
                     scannedBitmap = new Bitmap(currentPath);
                     picture = new Image<Gray, Byte>((Bitmap)scannedBitmap);
                     imageBox1.Image = picture;
-                    break;
+                    scannedBitmap.Dispose();
                 }
             }
         }
