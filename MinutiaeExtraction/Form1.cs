@@ -45,9 +45,7 @@ namespace MinutiaeExtraction
             //AHE
             if (picture != null)
             {
-                Bitmap afterSharpening = SharpenFilter.Sharpen(picture.ToBitmap());
-
-                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte> (afterSharpening));
+                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte> (picture.ToBitmap()));
 
                 //Gabor filter with Otsu binarization
                 Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
