@@ -53,8 +53,6 @@ namespace Futronic.Scanners.FS26X80
 
             if (!result)
             {
-                // There could be an error
-                // var error = LibScanApi.GetLastError();
                 return;
             }
 

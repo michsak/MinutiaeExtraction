@@ -13,48 +13,57 @@ namespace Futronic.ConsoleDemo
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Starting reader...");
-
-            var accessor = new DeviceAccessor();
-
-            using (var device = accessor.AccessFingerprintDevice())
+            try
             {
-                device.SwitchLedState(false, false);
+                Console.WriteLine("Starting reader...");
 
-                device.FingerDetected += (sender, eventArgs) =>
+                var accessor = new DeviceAccessor();
+
+                using (var device = accessor.AccessFingerprintDevice())
                 {
-                    Console.WriteLine("Finger Detected!");
+                    device.SwitchLedState(false, false);
 
-                    device.SwitchLedState(true, false);
+                    device.FingerDetected += (sender, eventArgs) =>
+                    {
+                        Console.WriteLine("Finger Detected!");
 
-                    // Save fingerprint to temporary folder
-                    var fingerprint = device.ReadFingerprint();
-                    var tempFile = Guid.NewGuid().ToString();
-                    var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
-                    fingerprint.Save(tmpBmpFile);
+                        device.SwitchLedState(true, false);
 
-                    Console.WriteLine("Saving file " + tmpBmpFile);
+                        // Save fingerprint to temporary folder
+                        var fingerprint = device.ReadFingerprint();
+                        var tempFile = Guid.NewGuid().ToString();
+                        var tmpBmpFile = Path.ChangeExtension(tempFile, "bmp");
+                        fingerprint.Save(tmpBmpFile);
 
-                };
+                        Console.WriteLine("Saving file " + tmpBmpFile);
 
-                device.FingerReleased += (sender, eventArgs) =>
-                {
-                    Console.WriteLine("Finger Released!");
+                    };
 
+                    device.FingerReleased += (sender, eventArgs) =>
+                    {
+                        Console.WriteLine("Finger Released!");
+
+                        device.SwitchLedState(false, true);
+                    };
+
+                    Console.WriteLine("Fingerprint Device Opened");
+
+                    device.StartFingerDetection();
                     device.SwitchLedState(false, true);
-                };
 
-                Console.WriteLine("Fingerprint Device Opened");
+                    Console.ReadLine();
 
-                device.StartFingerDetection();
-                device.SwitchLedState(false, true);
+                    Console.WriteLine("Exiting...");
 
-                Console.ReadLine();
-
-                Console.WriteLine("Exiting...");
-
-                device.SwitchLedState(false, false);
+                    device.SwitchLedState(false, false);
+                }
             }
+            catch (System.NullReferenceException)
+            {
+                Console.WriteLine("doing");
+                Environment.Exit(0);
+            }
+
         }
     }
 }

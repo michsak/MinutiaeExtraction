@@ -36,7 +36,6 @@ namespace MinutiaeExtraction
                 picture = new Image<Gray, Byte>(openFileDialog.FileName);
                 imageBox1.Image = picture;
                 imageBox1.SetZoomScale(1, new Point(0, 0));
-
             }
         }
 
@@ -45,7 +44,7 @@ namespace MinutiaeExtraction
             //AHE
             if (picture != null)
             {
-                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte> (picture.ToBitmap()));
+                Image<Gray, Byte> finalEqualizedImage = Normalization.AHE(new Image<Gray,Byte>(picture.ToBitmap()));
 
                 //Gabor filter with Otsu binarization
                 Image<Gray, Byte> finalGaborFiltering = GaborFilter.PerformFiltering(finalEqualizedImage);
@@ -77,6 +76,7 @@ namespace MinutiaeExtraction
         {
             Directory.SetCurrentDirectory(@"../../../Futronic.ConsoleDemo/bin/Debug/");
             string finalScannerPath = Path.Combine(Directory.GetCurrentDirectory().ToString(), "Futronic.ConsoleDemo.exe");
+
             Process.Start(finalScannerPath);
             String currentPath = "";
 
