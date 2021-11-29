@@ -14,6 +14,10 @@
   <li> False minutiae removal - all minutiae on the borders are removed. Needs little improvement - algorithm is not always detecting proper outer ROI border. </li>  
 </ol>
 
-Extraction params are saved in the "Extracted Params" directory. If you wish try app on sample fingerprints, some of them are in the "Sample Fingerprints" directory.
+Extraction params are saved in the "Extracted Params" directory. If you wish try app on sample fingerprints, some of them are in the "Sample Fingerprints" directory. <br> <br>
+Ridge endings are marked blue, bifurcations are marked red, crossings are marked green, single points are marked pink.
 
-<h2> Overwiev </h2>
+<h2> Overview </h2>
+<p align="center">
+  <img src="results.png">
+</p>
