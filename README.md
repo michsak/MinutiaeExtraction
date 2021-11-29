@@ -1,13 +1,13 @@
 # MinutiaeExtraction
 
 <h2> How to use? </h2>
-<p> Either load 320x480 image (.png, .jpg or .jpeg extensions) or scan image using Futronic FS88 fingerprint scanner. Afterwards click proper buttons to execute consecutive steps (1. picture loading or scanning, 2.AHE normalization, Gabor filtering, Otsu normalization, thinning, 3.Minutia extraction, false minutiae removal). All steps are described more precisely below.</p>
+<p> Either load 320x480 image (.png, .jpg or .jpeg extensions) or scan fingerprint using Futronic FS88 fingerprint scanner. Afterwards click proper buttons to execute consecutive steps (1. picture loading or scanning, 2.AHE normalization, Gabor filtering, Otsu normalization, thinning, 3.Minutia extraction, false minutiae removal). All steps are described more precisely below.</p>
 
 <h2>Minutiae extraction steps:</h2>
 <ol>
   <li> Load image </li>
   <li> AHE normalization </li>
-  <li> Gabor filtering - on each 80x80 pixels blocks, tests shown best results, tested on 320x480 pixels images </li>
+  <li> Gabor filtering - on each 80x80 pixels blocks, tests have shown best results, tested on 320x480 pixels images </li>
   <li> Otsu binariztion - each of Gabor filtered blocks is then binarized </li>
   <li> Line thinning - using KMM algorithm </li>
   <li> Minutiae extraction - Crossing Number Concept algorithm </li>
