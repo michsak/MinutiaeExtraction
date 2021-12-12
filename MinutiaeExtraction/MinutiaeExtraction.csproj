@@ -97,14 +97,12 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GaborFilter.cs" />
-    <Compile Include="K3M.cs" />
     <Compile Include="KMMAlgorithm.cs" />
     <Compile Include="Minutiae.cs" />
     <Compile Include="MinutiaeType.cs" />
     <Compile Include="Normalize.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SharpenFilter.cs" />
     <Compile Include="ThinningAlgorithm.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

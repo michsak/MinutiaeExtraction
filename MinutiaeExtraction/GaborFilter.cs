@@ -16,7 +16,6 @@ namespace MinutiaeExtraction
         private static int finalImageWidth = 320;
         private static int finalImageHeight = 480;
 
-
         public static Image<Gray, Byte> PerformFiltering(Image<Gray, Byte> oldImg)
         {
             int width = oldImg.Width;
@@ -32,8 +31,6 @@ namespace MinutiaeExtraction
             {
                 for (int j = 0; j < height / ROI; j++)
                 {
-                    Console.WriteLine("Cords = I: " + i + " J: " + j);
-
                     if (i == 0 && j > 0 && j < height / ROI - 1)
                     {
                         imgarray.Add(cropImage(newImage, new Rectangle(i * ROI, j * ROI - ROI / 2, ROI + ROI / 2, ROI + ROI)));
@@ -152,14 +149,10 @@ namespace MinutiaeExtraction
                                 }
                             }
 
-                            Console.WriteLine("doing");
                         }
                     }
 
-                    //}
-
                     imgArrayBitmap.Add(afterBinarization.ToBitmap());
-
 
                     GaborFilter.counter += 1;
                 }

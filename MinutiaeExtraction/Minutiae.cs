@@ -24,7 +24,7 @@ namespace MinutiaeExtraction
             var color = new MCvScalar(255, 9, 9);
             DrawCircleForMinutiae(newImg, edgeEnd, new MCvScalar(255, 9, 9)); // end - blue
             DrawCircleForMinutiae(newImg, fork, new MCvScalar(0, 0, 255)); // bifurcation - red
-            DrawCircleForMinutiae(newImg, crossing, new MCvScalar(0, 255, 0)); // scrossing - green
+            DrawCircleForMinutiae(newImg, crossing, new MCvScalar(0, 255, 0)); // crossing - green
             DrawCircleForMinutiae(newImg, singlePoint, new MCvScalar(255, 102, 255)); // single point - pink
 
             return newImg;
